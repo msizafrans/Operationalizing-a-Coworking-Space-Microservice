@@ -1,35 +1,69 @@
 # Operationalizing-a-Coworking-Space-Microservice
 
-Deploying a Business Analysts API as a Microservice to Kubernetes using AWS
+# Coworking Space Service Extension
+The Coworking Space Service is a set of APIs that enables users to request one-time tokens and administrators to authorize access to a coworking space. This service follows a microservice pattern and the APIs are split into distinct services that can be deployed and managed independently of one another.
 
-How the project works:
+For this project, you are a DevOps engineer who will be collaborating with a team that is building an API for business analysts. The API provides business analysts basic analytics data on user activity in the service. The application they provide you functions as expected locally and you are expected to help build a pipeline to deploy it in Kubernetes.
 
-1. Created and setup a repository using the AWS Elastic Container Registry for storing docker images of the application pushed from the CodeBuild project.
-In this project, Image was build according to the buildspec.yaml file. The buildspec.yaml file is defined with commands to loging into the AWS management console, build and push the docker image to the ECR repository.
+## Getting Started
 
-2. Setup a build project pipeline using AWS Codebuild with relevant ECR role data attached to it so that the build job can successfuly push the build image to a registry. 
-The project is triggered by webhook event "pull_request_merged" in the selected ready github project repository.
+### Dependencies
+#### Local Environment
+1. Python Environment - run Python 3.6+ applications and install Python dependencies via `pip`
+2. Docker CLI - build and run Docker images locally
+3. `kubectl` - run commands against a Kubernetes cluster
+4. `helm` - apply Helm Charts to a Kubernetes cluster
 
-3. I have then Setup a cluster using Amazon Elastic Kubernetes Service with a node group which consists of 2 nodes of Amazon Linux 2 (arm64) with Instance type m6g.large and 20GiB disk size. 
-This are suitable hardware and software components for this application, considering its workload. 
-Furthermore, you can scale up/down according to your business unit needs.
+#### Remote Resources
+1. AWS CodeBuild - build Docker images remotely
+2. AWS ECR - host Docker images
+3. Kubernetes Environment with AWS EKS - run applications in k8s
+4. AWS CloudWatch - monitor activity and logs in EKS
+5. GitHub - pull and clone code
 
-4. Initialize communication between the AWS EKS service and the VS Studio termianal in order to be able to access and work on the created cluster.
-From the VS Studios Workspace terminal by running > aws eks update-kubeconfig --name <cluster-name> --region <region>.
+### Setup
+#### 1. Configure a Database
+Set up a Postgres database using a Helm Chart.
 
-5. Create a deployment.yaml file to deploy the container from the ECR repository to run as a pod in kubernetes.
-Create a configmap.yaml file for the container which consists of postgresql helm chart data so that the business analysts api has a database to connect to.
-Create a secrets.yaml which consists of sensetive data to connect and access the database.
-Create a db service's service, in this project for High Availability purposes create a load balancer for the container.
- 
-6. I have configured a database for this Microservice using Helm Charts as follows:
-> helm repo add bitnami https://charts.bitnami.com/bitnami
-> helm install analyticsapi bitnami/postgresql --set primary.persistence.enabled=false
-First command creates a repository for this database service.
-Then the second command installs the PostgreSQL Helm Chart.
-Followed command two output instructions on multiple ways to connect to the database from within or outside the cluster.
+1. Set up Bitnami Repo
+```bash
+helm repo add <REPO_NAME> https://charts.bitnami.com/bitnami
+```
 
-7. Therefore, I have the database service running which can be accessed by the deployed business analysts api container/image, running as a pod.
-Since the Microservice runs as a pod in a Kubernetes cluster and can be destroyed and redeployed automatically whenever a merged code occurs in a GitHub repo.
-For high availability purposes, a deployed Load Balancer targeting the pod running the container/image of the Business Analyts application should be activate.
-For troubleshooting purposes, the logs for the container/application running as a kubernetes pod are directed to a log group which can be accessed using from AWS CloudWatch, under log groups.
+2. Install PostgreSQL Helm Chart
+```
+helm install <SERVICE_NAME> <REPO_NAME>/postgresql
+```
+
+This should set up a Postgre deployment at `<SERVICE_NAME>-postgresql.default.svc.cluster.local` in your Kubernetes cluster. You can verify it by running `kubectl svc`
+
+By default, it will create a username `postgres`. The password can be retrieved with the following command:
+```bash
+export POSTGRES_PASSWORD=$(kubectl get secret --namespace default <SERVICE_NAME>-postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
+
+echo $POSTGRES_PASSWORD
+```
+
+<sup><sub>* The instructions are adapted from [Bitnami's PostgreSQL Helm Chart](https://artifacthub.io/packages/helm/bitnami/postgresql).</sub></sup>
+
+3. Test Database Connection
+The database is accessible within the cluster. This means that when you will have some issues connecting to it via your local environment. You can either connect to a pod that has access to the cluster _or_ connect remotely via [`Port Forwarding`](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
+
+* Connecting Via Port Forwarding
+```bash
+kubectl port-forward --namespace default svc/<SERVICE_NAME>-postgresql 5432:5432 &
+    PGPASSWORD="$POSTGRES_PASSWORD" psql --host 127.0.0.1 -U postgres -d postgres -p 5432
+```
+
+* Connecting Via a Pod
+```bash
+kubectl exec -it <POD_NAME> bash
+PGPASSWORD="<PASSWORD HERE>" psql postgres://postgres@<SERVICE_NAME>:5432/postgres -c <COMMAND_HERE>
+```
+
+4. Run Seed Files
+We will need to run the seed files in `db/` in order to create the tables and populate them with data.
+
+```bash
+kubectl port-forward --namespace default svc/<SERVICE_NAME>-postgresql 5432:5432 &
+    PGPASSWORD="$POSTGRES_PASSWORD" psql --host 127.0.0.1 -U postgres -d postgres -p 5432 < <FILE_NAME.sql>
