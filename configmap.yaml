@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dbconfigmap
+data:
+  DB_PORT: "5432"
+  DB_NAME: "postgres"
+  DB_HOST: "analyticsapi-postgresql.default.svc.cluster.local"
+  DB_USERNAME: "postgres"
