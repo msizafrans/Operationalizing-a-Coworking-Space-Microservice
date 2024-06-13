@@ -1,6 +1,6 @@
-Deploying a Business Analysts API as a Microservice to Kubernetes using AWS
+# Deploying a Business Analysts API as a Microservice to Kubernetes using AWS
 
-How the project works:
+# How the project works:
 
 1. Created and setup a repository using the AWS Elastic Container Registry for storing docker images of the application pushed from the CodeBuild project.
 In this project, Image was build according to the buildspec.yaml file. The buildspec.yaml file is defined with commands to loging into the AWS management console, build and push the docker image to the ECR repository.
