@@ -1,4 +1,4 @@
-# Deploying a Business Analysts API as a *Microservice* to *Kubernetes* using AWS
+# Deploying a Business Analysts API as a Microservice to Kubernetes using AWS
 
 # How the project works:
 
