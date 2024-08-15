@@ -17,7 +17,7 @@ For this project, you are a DevOps engineer who will be collaborating with a tea
 4. AWS CloudWatch - monitor activity and logs in EKS
 5. GitHub - pull and clone code
 
-### Project Objectives:
+### Project Objectives
 1. Set up a Postgres database with a Helm Chart
 2. Create a `Dockerfile` for the Python application. Use a base image that is Python-based.
 3. Write a simple build pipeline with AWS CodeBuild to build and push a Docker image into AWS ECR
