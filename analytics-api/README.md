@@ -1,1 +1,0 @@
-Microservices-based architecture at scale using Kubernetes on AWS. The project emphasizes the application of container orchestration, cloud-native services, and continuous integration/continuous deployment (CI/CD) practices to build a robust, scalable, and resilient system.
