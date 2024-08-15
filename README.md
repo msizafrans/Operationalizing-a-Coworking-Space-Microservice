@@ -124,11 +124,11 @@ Furthermore, scaling up/down can be advantageous and beneficial as per business 
 From the VS Studios Workspace terminal by running > **aws eks update-kubeconfig --name <cluster-name> --region <region>**
 
 **5.** I have configured a database for this Microservice using Helm Charts as follows:
-> **helm repo add bitnami https://charts.bitnami.com/bitnami** \
-> **helm install analyticsapi bitnami/postgresql --set primary.persistence.enabled=false** \
-First command creates a repository for this database service. \
-Then the second command installs the PostgreSQL Helm Chart. \
-Followed command two output instructions on multiple ways to connect to the database from within or outside the cluster
+ - > **helm repo add bitnami https://charts.bitnami.com/bitnami** \
+- > **helm install analyticsapi bitnami/postgresql --set primary.persistence.enabled=false** \
+- First command creates a repository for this database service. \
+- Then the second command installs the PostgreSQL Helm Chart. \
+- Followed command two output instructions on multiple ways to connect to the database from within or outside the cluster
 
 **6.** Therefore, I have the database service running which can be accessed by the deployed container running an image of the business analysts api.
 This Microservice is now running as a pod in a Kubernetes cluster and it can be destroyed and redeployed automatically whenever a merged code occurs in a GitHub repo.
