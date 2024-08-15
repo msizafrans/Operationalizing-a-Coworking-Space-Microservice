@@ -28,7 +28,7 @@ For this project, you are a DevOps engineer who will be collaborating with a tea
 
 #### How the project works:
 
-**1.** Created and setup a repository using the **AWS Elastics Container Registry** for storing **docker** images of the application pushed from the AWS CodeBuild project.
+**1.** Set up a private repository using **AWS Elastic Container Registry** (ECR) to store Docker images of the application, which are pushed from the AWS CodeBuild project.
 
 **2.** Setup a build project pipeline using **AWS Codebuild** with relevant ECR role data attached to it so that the build job can successfuly push the build image to a registry. 
 The project is triggered by webhook event "pull_request_merged" in the selected ready github project repository.
