@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: analytics-api
+  labels:
+    name: analytics-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      service: analytics-api
+  template:
+    metadata:
+      labels:
+        service: analytics-api
+    spec:
+      containers:
+      - name: analytics-api
+        image: 811760461644.dkr.ecr.us-east-1.amazonaws.com/analyticsrepo:0.0.1
+        imagePullPolicy: Always
+        env:
+        - name: DB_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_USERNAME
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_NAME
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_HOST
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_PORT
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: dbsecret
+              key: DB_PASSWORD
+        ports:
+          - containerPort: 5153        
+      
+
+      
