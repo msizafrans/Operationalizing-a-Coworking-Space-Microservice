@@ -48,7 +48,7 @@ This project focuses on deploying and managing microservices at scale using Kube
 
 - Finally, Run the seed files located in the db/ directory to create the tables and populate them with data.
 
-**At this stage, You should have a database service running and accessible by the deployed container hosting the Business Analysts API "analytics-api". This microservice is operating as a pod within a Kubernetes cluster, with the capability to be automatically destroyed and redeployed whenever a code merge occurs in the GitHub repository. To ensure high availability, a Load Balancer has been deployed to target the pod running the Business Analysts application. For troubleshooting, the logs from the container/application running as a Kubernetes pod are directed to a log group that can be accessed via AWS CloudWatch under Log Groups.**
+**At this stage, You should have a database service running and accessible by the deployed container hosting analytics-api. This microservice is operating as a pod within a Kubernetes cluster, with the capability to be automatically destroyed and redeployed whenever a code merge occurs in the GitHub repository. To ensure high availability, a Load Balancer has been deployed to target the pod running the Business Analysts application. For troubleshooting, the logs from the container/application running as a Kubernetes pod are directed to a log group that can be accessed via AWS CloudWatch under Log Groups.**
 
 #### Best Practices
 * Dockerfile uses an appropriate base image for the application being deployed. Complex commands in the Dockerfile include a comment describing what it is doing.
