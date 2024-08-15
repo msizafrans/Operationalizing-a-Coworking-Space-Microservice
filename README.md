@@ -24,58 +24,9 @@ For this project, you are a DevOps engineer who will be collaborating with a tea
 4. Create a service and deployment using Kubernetes configuration files to deploy the application
 5. Check AWS CloudWatch for application logs
 
-### Setup
-#### 1. Configure a Database
-Set up a Postgres database using a Helm Chart.
+## Setup - Deploying a Business Analysts API as a Microservice to Kubernetes using AWS
 
-1. Set up Bitnami Repo
-```bash
-helm repo add <REPO_NAME> https://charts.bitnami.com/bitnami
-```
-
-2. Install PostgreSQL Helm Chart
-```
-helm install <SERVICE_NAME> <REPO_NAME>/postgresql
-```
-
-This should set up a Postgre deployment at `<SERVICE_NAME>-postgresql.default.svc.cluster.local` in your Kubernetes cluster. You can verify it by running `kubectl svc`
-
-By default, it will create a username `postgres`. The password can be retrieved with the following command:
-```bash
-export POSTGRES_PASSWORD=$(kubectl get secret --namespace default <SERVICE_NAME>-postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
-
-echo $POSTGRES_PASSWORD
-```
-
-<sup><sub>* The instructions are adapted from [Bitnami's PostgreSQL Helm Chart](https://artifacthub.io/packages/helm/bitnami/postgresql).</sub></sup>
-
-3. Test Database Connection
-The database is accessible within the cluster. This means that when you will have some issues connecting to it via your local environment. You can either connect to a pod that has access to the cluster _or_ connect remotely via [`Port Forwarding`](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
-
-* Connecting Via Port Forwarding
-```bash
-kubectl port-forward --namespace default svc/<SERVICE_NAME>-postgresql 5432:5432 &
-    PGPASSWORD="$POSTGRES_PASSWORD" psql --host 127.0.0.1 -U postgres -d postgres -p 5432
-```
-
-* Connecting Via a Pod
-```bash
-kubectl exec -it <POD_NAME> bash
-PGPASSWORD="<PASSWORD HERE>" psql postgres://postgres@<SERVICE_NAME>:5432/postgres -c <COMMAND_HERE>
-```
-
-4. Run Seed Files
-We will need to run the seed files in `db/` in order to create the tables and populate them with data.
-
-```bash
-kubectl port-forward --namespace default svc/<SERVICE_NAME>-postgresql 5432:5432 &
-    PGPASSWORD="$POSTGRES_PASSWORD" psql --host 127.0.0.1 -U postgres -d postgres -p 5432 < <FILE_NAME.sql>
-```
-
-
-## Deploying a Business Analysts API as a Microservice to Kubernetes using AWS
-
-### How the project works:
+#### How the project works:
 
 **1.** Created and setup a repository using the **AWS Elastics Container Registry** for storing **docker** images of the application pushed from the AWS CodeBuild project.
 
@@ -93,14 +44,16 @@ From the VS Studios Workspace terminal by running > **aws eks update-kubeconfig 
  - > **helm repo add bitnami https://charts.bitnami.com/bitnami** 
 - > **helm install analyticsapi bitnami/postgresql --set primary.persistence.enabled=false** 
 - First command creates a repository for this database service. 
-- Then the second command installs the PostgreSQL Helm Chart. 
+- Then the second command installs the PostgreSQL Helm Chart.
+- This should set up a Postgre deployment at `<SERVICE_NAME>-postgresql.default.svc.cluster.local` in your Kubernetes cluster. You can verify it by running `kubectl svc`
 - Followed command two output instructions on multiple ways to connect to the database from within or outside the cluster
+- We will need to run the seed files in `db/` in order to create the tables and populate them with data.
 
 **6.** Therefore, I have the database service running which can be accessed by the deployed container running an image of the business analysts api.
 This Microservice is now running as a pod in a Kubernetes cluster and it can be destroyed and redeployed automatically whenever a merged code occurs in a GitHub repo.
 For high availabilty purposes, I have also deployed a Load Balancer targeting the pod running the container/image of the Business Analyts application.
 For troubleshooting purposes, the logs for the container/application running as a kubernetes pod are directed to a log group which can be accessed using from AWS CloudWatch, under log groups.
 
-### Best Practices
+#### Best Practices
 * Dockerfile uses an appropriate base image for the application being deployed. Complex commands in the Dockerfile include a comment describing what it is doing.
-* The Docker images use semantic versioning with three numbers separated by dots, e.g. `1.2.1` and  versioning is visible in the  screenshot. See [Semantic Versioning](https://semver.org/) for more details.
+* The Docker images use semantic versioning with three numbers separated by dots, e.g. `1.2.1` and versioning is visible in the  screenshot. See [Semantic Versioning](https://semver.org/) for more details.
