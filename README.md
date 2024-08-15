@@ -3,7 +3,7 @@ The Coworking Space Service is a set of APIs that enables users to request one-t
 
 For this project, you are a DevOps engineer who will be collaborating with a team that is building an API for business analysts. The API provides business analysts basic analytics data on user activity in the service. The application they provide you functions as expected locally and you are expected to help build a pipeline to deploy it in Kubernetes.
 
-## Dependencies
+### Dependencies
 #### Local Environment
 1. Python Environment - run Python 3.6+ applications and install Python dependencies via `pip`
 2. Docker CLI - build and run Docker images locally
@@ -17,14 +17,14 @@ For this project, you are a DevOps engineer who will be collaborating with a tea
 4. AWS CloudWatch - monitor activity and logs in EKS
 5. GitHub - pull and clone code
 
-## Project Objectives:
+### Project Objectives:
 1. Set up a Postgres database with a Helm Chart
 2. Create a `Dockerfile` for the Python application. Use a base image that is Python-based.
 3. Write a simple build pipeline with AWS CodeBuild to build and push a Docker image into AWS ECR
 4. Create a service and deployment using Kubernetes configuration files to deploy the application
 5. Check AWS CloudWatch for application logs
 
-## Setup - Deploying a Business Analysts API as a Microservice to Kubernetes using AWS
+### Setup - Deploying a Business Analysts API as a Microservice to Kubernetes using AWS
 
 #### How the project works:
 
