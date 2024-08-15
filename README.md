@@ -39,9 +39,8 @@ For this project, you are a DevOps engineer who will be collaborating with a tea
 
 Add the Bitnami repository:
 > helm repo add bitnami https://charts.bitnami.com/bitnami
-Install the PostgreSQL Helm Chart:
 
-Installs the PostgreSQL Helm Chart.
+Install the PostgreSQL Helm Chart:
 > helm install analyticsapi bitnami/postgresql --set primary.persistence.enabled=false
 
 - This sets up a PostgreSQL deployment at <SERVICE_NAME>-postgresql.default.svc.cluster.local in your Kubernetes cluster. You can verify it by running kubectl get svc.
