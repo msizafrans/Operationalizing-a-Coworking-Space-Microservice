@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: analytics-api
-        image: 811760461644.dkr.ecr.us-east-1.amazonaws.com/analyticsrepo:0.0.1
+        image: 811760461644.dkr.ecr.us-east-1.amazonaws.com/analytics:0.0.1
         imagePullPolicy: Always
         env:
         - name: DB_USERNAME
