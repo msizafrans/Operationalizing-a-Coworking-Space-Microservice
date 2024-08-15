@@ -3,9 +3,7 @@ The Coworking Space Service is a set of APIs that enables users to request one-t
 
 For this project, you are a DevOps engineer who will be collaborating with a team that is building an API for business analysts. The API provides business analysts basic analytics data on user activity in the service. The application they provide you functions as expected locally and you are expected to help build a pipeline to deploy it in Kubernetes.
 
-## Getting Started
-
-### Dependencies
+## Dependencies
 #### Local Environment
 1. Python Environment - run Python 3.6+ applications and install Python dependencies via `pip`
 2. Docker CLI - build and run Docker images locally
