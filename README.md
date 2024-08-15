@@ -100,50 +100,37 @@ The benefit here is that it's explicitly set. However, note that the `DB_PASSWOR
 * Generate report for check-ins grouped by users
 `curl <BASE_URL>/api/reports/user_visits`
 
-## Project Instructions
+## Project Objectives:
 1. Set up a Postgres database with a Helm Chart
 2. Create a `Dockerfile` for the Python application. Use a base image that is Python-based.
 3. Write a simple build pipeline with AWS CodeBuild to build and push a Docker image into AWS ECR
 4. Create a service and deployment using Kubernetes configuration files to deploy the application
 5. Check AWS CloudWatch for application logs
 
-### Deliverables
-1. `Dockerfile`
-2. Screenshot of AWS CodeBuild pipeline
-3. Screenshot of AWS ECR repository for the application's repository
-4. Screenshot of `kubectl get svc`
-5. Screenshot of `kubectl get pods`
-6. Screenshot of `kubectl describe svc <DATABASE_SERVICE_NAME>`
-7. Screenshot of `kubectl describe deployment <SERVICE_NAME>`
-8. All Kubernetes config files used for deployment (ie YAML files)
-9. Screenshot of AWS CloudWatch logs for the application
-10. `README.md` file in your solution that serves as documentation for your user to detail how your deployment process works and how the user can deploy changes. The details should not simply rehash what you have done on a step by step basis. Instead, it should help an experienced software developer understand the technologies and tools in the build and deploy process as well as provide them insight into how they would release new builds.
+## Deploying a Business Analysts API as a Microservice to Kubernetes using AWS
 
+### How the project works:
 
-Deploying a Business Analysts API as a Microservice to Kubernetes using AWS
+**1.** Created and setup a repository using the **AWS Elastics Container Registry** for storing **docker** images of the application pushed from the AWS CodeBuild project.
 
-How the project works:
-
-1. Created and setup a repository using the AWS Elastics Container Registry for storing docker images of the application pushed from the CodeBuild project.
-
-2. Setup a build project pipeline using AWS Codebuild with relevant ECR role data attached to it so that the build job can successfuly push the build image to a registry. 
+**2.** Setup a build project pipeline using **AWS Codebuild** with relevant ECR role data attached to it so that the build job can successfuly push the build image to a registry. 
 The project is triggered by webhook event "pull_request_merged" in the selected ready github project repository.
 
-3. I have then Setup a cluster using Amazon Elastic Kubernetes Service with a node group which consists of 2 nodes of Amazon Linux 2 (arm64) with Instance type m6g.large and 20GiB disk size. 
+**3.** I have then Setup a cluster using **Amazon Elastic Kubernetes Service** with a node group which consists of **2 nodes of Amazon Linux 2 (arm64) with Instance type m6g.large and 20GiB disk size.** 
 This are suitable hardware and software components for this application, considering its workload. 
 Furthermore, scaling up/down can be advantageous and beneficial as per business requirements/needs.
 
-4. Initialize communication between the AWS EKS service and the VS Studio termianal in order to be able to access and work on the created cluster.
-From the VS Studios Workspace terminal by running > aws eks update-kubeconfig --name <cluster-name> --region <region>
+**4.** Initialize communication between the AWS EKS service and the VS Studio termianal in order to be able to access and work on the created cluster.
+From the VS Studios Workspace terminal by running > **aws eks update-kubeconfig --name <cluster-name> --region <region>**
 
-5. I have configured a database for this Microservice using Helm Charts as follows:
-> helm repo add bitnami https://charts.bitnami.com/bitnami
-> helm install analyticsapi bitnami/postgresql --set primary.persistence.enabled=false
+**5.** I have configured a database for this Microservice using Helm Charts as follows:
+> **helm repo add bitnami https://charts.bitnami.com/bitnami**
+> **helm install analyticsapi bitnami/postgresql --set primary.persistence.enabled=false**
 First command creates a repository for this database service.
 Then the second command installs the PostgreSQL Helm Chart.
 Followed command two output instructions on multiple ways to connect to the database from within or outside the cluster
 
-6. Therefore, I have the database service running which can be accessed by the deployed container running an image of the business analysts api.
+**6.** Therefore, I have the database service running which can be accessed by the deployed container running an image of the business analysts api.
 This Microservice is now running as a pod in a Kubernetes cluster and it can be destroyed and redeployed automatically whenever a merged code occurs in a GitHub repo.
 For high availabilty purposes, I have also deployed a Load Balancer targeting the pod running the container/image of the Business Analyts application.
 For troubleshooting purposes, the logs for the container/application running as a kubernetes pod are directed to a log group which can be accessed using from AWS CloudWatch, under log groups.
