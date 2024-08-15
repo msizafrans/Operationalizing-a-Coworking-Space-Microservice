@@ -24,7 +24,7 @@ For this project, you are a DevOps engineer who will be collaborating with a tea
 4. Create a service and deployment using Kubernetes configuration files to deploy the application
 5. Check AWS CloudWatch for application logs
 
-### Setup - Deploying a Business Analysts API as a Microservice to Kubernetes using AWS
+## Setup - Deploying a Business Analysts API as a Microservice to Kubernetes using AWS
 
 #### How the project works:
 
