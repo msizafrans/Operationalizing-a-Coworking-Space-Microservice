@@ -25,10 +25,10 @@ This project focuses on deploying and managing microservices at scale using Kube
 
 ### Deploying a Business Analysts API as a Microservice to Kubernetes using AWS:
 
-1. Set up a private repository using AWS Elastic Container Registry (ECR) to store Docker images of the application, which are pushed from the AWS CodeBuild project.
+1. Set up a build pipeline using AWS CodeBuild, attaching the necessary ECR role permissions to enable the build job to successfully push the Docker image to a registry. The pipeline is triggered by a webhook event when a "pull_request_merged" action occurs in the specified GitHub repository.
 
-2. Set up a build pipeline using AWS CodeBuild, attaching the necessary ECR role permissions to enable the build job to successfully push the Docker image to a registry. The pipeline is triggered by a webhook event when a "pull_request_merged" action occurs in the specified GitHub repository.
-
+2. Set up a private repository using AWS Elastic Container Registry (ECR) to store Docker images of the application, which are pushed from the AWS CodeBuild project.
+   
 3. I then set up a cluster using Amazon Elastic Kubernetes Service (EKS) with a node group consisting of 2 nodes running Amazon Linux 2 (ARM64), with m6g.large instance types and 20 GiB disk sizes. These hardware and software components are well-suited for the application's workload. Additionally, the ability to scale up or down offers flexibility to meet evolving business requirements.
 
 4. Establish communication between the AWS EKS service and the Visual Studio terminal to access and work on the created cluster. From the Visual Studio workspace terminal, run the command:
