@@ -32,7 +32,7 @@ This project focuses on deploying and managing microservices at scale using Kube
 3. I then set up a cluster using Amazon Elastic Kubernetes Service (EKS) with a node group consisting of 2 nodes running Amazon Linux 2 (ARM64), with m6g.large instance types and 20 GiB disk sizes. These hardware and software components are well-suited for the microservice's workload. Additionally, the ability to scale up or down offers flexibility to meet evolving business requirements.
 
 4. Establish communication between the AWS EKS service and the Visual Studio terminal to access and work on the created cluster. From the Visual Studio workspace terminal, run the command:
-   > aws eks update-kubeconfig --name "cluster-name" --region "region"
+   > aws eks update-kubeconfig --name "your-cluster-name" --region "region"
 
 5. I configured a database for this microservice using Helm Charts as follows:
 
