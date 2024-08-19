@@ -6,4 +6,4 @@ data:
   DB_PORT: "5432"
   DB_NAME: "postgres"
   DB_HOST: "analyticsapi-postgresql.default.svc.cluster.local"
-  DB_USERNAME: "postgres"
+  DB_USERNAME: ${{ secrets.DB_USERNAME }}
