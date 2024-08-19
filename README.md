@@ -23,7 +23,7 @@ This project focuses on deploying and managing microservices at scale using Kube
 - Create a service and deployment using Kubernetes configuration files to deploy the application
 - Check AWS CloudWatch for application logs
 
-### Deploying a Business Analysts API as a Microservice to Kubernetes using AWS:
+### Deploying an Analytics API as a Microservice to Kubernetes using AWS:
 
 1. Set up a build pipeline using AWS CodeBuild, attaching the necessary ECR role permissions to enable the build job to successfully push the Docker image to a registry. The pipeline is triggered by a webhook event when a "pull_request_merged" action occurs in the specified GitHub repository.
 
