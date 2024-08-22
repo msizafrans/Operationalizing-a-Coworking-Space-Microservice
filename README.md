@@ -14,7 +14,7 @@ This project focuses on deploying and managing microservices at scale using Kube
 - Kubernetes Environment with AWS EKS - run applications in k8s
 - AWS CloudWatch - monitor activity and logs in EKS
 - GitHub - pull and clone code
-- Docker
+- Docker - containerize the app
 
 ### Project Objectives:
 - Set up a Postgres database with a Helm Chart
