@@ -48,7 +48,7 @@ This project focuses on deploying and managing microservices at scale using Kube
 
 - Finally, run the seed files located in the `db/` directory in numerical order to create the tables and populate them with data.
 
-**At this stage, your database service should be running and accessible by the deployed container hosting the analytics API. This microservice operates as a pod within a Kubernetes cluster, with the ability to be automatically destroyed and redeployed whenever a code merge occurs in the GitHub repository. To ensure high availability, a Load Balancer has been deployed to direct traffic to the pod running the analytics API microservice.** \
+**At this stage, your database service should be running and accessible by the deployed container hosting the analytics API. This microservice operates as a pod within a Kubernetes cluster, with the ability to be automatically destroyed and redeployed whenever a code merge occurs in the GitHub repository. To ensure high availability, a Load Balancer has been deployed to direct traffic to the pod running the analytics API microservice.** 
 
 For troubleshooting, logs from the container or application running as a Kubernetes pod are sent to a log group that can be accessed through AWS CloudWatch under Log Groups.
 
