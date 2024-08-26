@@ -1,4 +1,4 @@
-# Image of Linux Debian 10 Operating System to host the Application
+# Debian Buster operating system that will be used to create the Docker container
 FROM python:3.9-slim-buster
 
 # Set the working directory inside the Docker container to "/src"
