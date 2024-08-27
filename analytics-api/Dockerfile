@@ -1,17 +1,17 @@
-# Debian Buster operating system that will be used to create the Docker container
+# Use Python 3.9 slim-buster as the base image
 FROM python:3.9-slim-buster
 
-# Set the working directory inside the Docker container to "/src"
-WORKDIR /src
+# Set the working directory inside the Docker container
+WORKDIR /app
 
-# Copy the requirements.txt file from the local directory to the current working directory inside the Docker container
-COPY requirements.txt .
+# Copy the requirements.txt file to the working directory inside the Docker container
+COPY requirements.txt /app/
 
 # Install the necessary Python packages and dependencies for the application
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Copy the contents of the current directory (where the Dockerfile is located) to the current working directory inside the Docker container
-COPY . .
+# Copy the contents of the 'app' directory to the working directory inside the Docker container
+COPY app/ /app/
 
-# Run the application
-CMD python app.py
+# Set the command to run the application
+CMD ["python", "/app/app.py"]
