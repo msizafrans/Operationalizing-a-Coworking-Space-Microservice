@@ -22,12 +22,6 @@ This project focuses on deploying and managing microservices at scale using Kube
 - Write a simple build pipeline with AWS CodeBuild to build and push a Docker image into AWS ECR
 - Create a service and deployment using Kubernetes configuration files to deploy the application
 - Check AWS CloudWatch for application logs
-
-### Deploying an Analytics API as a Microservice to Kubernetes using AWS:
-
-1. Set up a private repository using AWS Elastic Container Registry (ECR) to store Docker images of the application, which are pushed from the AWS CodeBuild project.
-   
-2. Configure a CI build pipeline using AWS CodeBuild and provide the necessary ECR permissions to allow the build job to push the Docker image to the Elastic Container Registry (ECR) successfully. This pipeline will be triggered by a webhook event when a "pull_request_merged" action occurs in the specified GitHub repository that contains the application code. The `analytics-api` folder should be a standalone repository in this setup. The `buildspec.yml` file outlines the build process steps, including logging into the Amazon ECR, building and containerizing the Docker image according to the Dockerfile instructions, tagging the image, and pushing it to ECR.
    
 ### How Continuous Deployment is Implemented:
 
