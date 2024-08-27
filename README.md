@@ -40,6 +40,7 @@ This project focuses on deploying and managing microservices at scale using Kube
 4. **Continuous Deployment with Kubernetes on AWS EKS**:
    - The Kubernetes cluster is set up using Amazon Elastic Kubernetes Service (EKS) with a node group to run the application. The node group consisting of 2 nodes       running Amazon Linux 2 (ARM64), with m6g.large instance types and 20 GiB disk sizes. These hardware and software components are well-suited for the                 microservice's workload. Additionally, the ability to scale up or down offers flexibility to meet evolving business requirements.
    - Establish communication between the AWS EKS service and the Visual Studio terminal to access and work on the created cluster. From the Visual Studio workspace      terminal, run the command:
+     
       > aws eks update-kubeconfig --name --region
    - Once the Docker image is pushed to ECR, Kubernetes automatically pulls the updated image based on the deployment configuration.
    - Kubernetes deployment files (YAML configuration files) specify how the application is deployed and managed within the cluster. They define the desired state        for deployments, services, and other resources.
