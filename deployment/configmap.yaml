@@ -5,5 +5,5 @@ metadata:
 data:
   DB_PORT: "5432"
   DB_NAME: "postgres"
-  DB_HOST: "<service_name>-postgresql.default.svc.cluster.local"
+  DB_HOST: "<service-name>-postgresql.default.svc.cluster.local"
   DB_USERNAME: ${{ secrets.DB_USERNAME }}
