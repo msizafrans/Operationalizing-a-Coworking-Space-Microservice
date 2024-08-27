@@ -40,7 +40,7 @@ This project focuses on deploying and managing microservices at scale using Kube
 4. **Continuous Deployment with Kubernetes on AWS EKS**:
    - The Kubernetes cluster is set up using Amazon Elastic Kubernetes Service (EKS) with a node group to run the application. The node group consisting of 2 nodes       running Amazon Linux 2 (ARM64), with m6g.large instance types and 20 GiB disk sizes. These hardware and software components are well-suited for the                 microservice's workload. Additionally, the ability to scale up or down offers flexibility to meet evolving business requirements.
    - Establish communication between the AWS EKS service and the Visual Studio terminal to access and work on the created cluster. From the Visual Studio workspace      terminal, run the command:
-   > aws eks update-kubeconfig --name <your-cluster-name> --region <region>
+      > aws eks update-kubeconfig --name <your-cluster-name> --region <region>
    - Once the Docker image is pushed to ECR, Kubernetes automatically pulls the updated image based on the deployment configuration.
    - Kubernetes deployment files (YAML configuration files) specify how the application is deployed and managed within the cluster. They define the desired state        for deployments, services, and other resources.
    - When a new Docker image version is available (after a new image is pushed to ECR), Kubernetes can automatically update the running pods with the new image          version. This is facilitated by the Kubernetes Deployment controller, which performs rolling updates to minimize downtime.
@@ -49,10 +49,10 @@ This project focuses on deploying and managing microservices at scale using Kube
    - Helm charts are used to deploy and manage the PostgreSQL database within the Kubernetes cluster. Helm automates the creation and management of Kubernetes           resources, simplifying the deployment process.
      
    - Add the Bitnami repository:
-   > helm repo add bitnami https://charts.bitnami.com/bitnami
+      > helm repo add bitnami https://charts.bitnami.com/bitnami
 
    Install the PostgreSQL Helm Chart:
-   > helm install analyticsapi bitnami/postgresql --set primary.persistence.enabled=false
+      > helm install analyticsapi bitnami/postgresql --set primary.persistence.enabled=false
 
    - This sets up a PostgreSQL deployment at <SERVICE_NAME>-postgresql.default.svc.cluster.local in your Kubernetes cluster. You can verify it by running kubectl        get svc.
 
