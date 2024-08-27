@@ -27,31 +27,48 @@ This project focuses on deploying and managing microservices at scale using Kube
 
 1. Set up a private repository using AWS Elastic Container Registry (ECR) to store Docker images of the application, which are pushed from the AWS CodeBuild project.
    
-2. Set up a CI build pipeline using AWS CodeBuild and grant the necessary ECR permissions to ensure the build job can successfully push the Docker image to the Elastic Container Registry (ECR). The pipeline will be triggered by a webhook event when a "pull_request_merged" action occurs in the specified GitHub repository containing the application code. In this scenario, the `analytics-api` folder should exist as an independent repository. The `buildspec.yml` file is essential in AWS CodeBuild projects, as it defines the commands and settings required to build, test, and package your application.
+2. Configure a CI build pipeline using AWS CodeBuild and provide the necessary ECR permissions to allow the build job to push the Docker image to the Elastic Container Registry (ECR) successfully. This pipeline will be triggered by a webhook event when a "pull_request_merged" action occurs in the specified GitHub repository that contains the application code. The `analytics-api` folder should be a standalone repository in this setup. The `buildspec.yml` file outlines the build process steps, including logging into the Amazon ECR, building and containerizing the Docker image according to the Dockerfile instructions, tagging the image, and pushing it to ECR.
    
-3. I then set up a cluster using Amazon Elastic Kubernetes Service (EKS) with a node group consisting of 2 nodes running Amazon Linux 2 (ARM64), with m6g.large instance types and 20 GiB disk sizes. These hardware and software components are well-suited for the microservice's workload. Additionally, the ability to scale up or down offers flexibility to meet evolving business requirements.
+### How Continuous Deployment is Implemented:
 
-4. Establish communication between the AWS EKS service and the Visual Studio terminal to access and work on the created cluster. From the Visual Studio workspace terminal, run the command:
-   > aws eks update-kubeconfig --name "your-cluster-name" --region "region"
+1. **Source Code Management with GitHub**:
+   - The application code is stored in a GitHub repository. A webhook is configured to trigger actions based on specific events, such as a "pull_request_merged"         action.
 
-5. I configured a database for this microservice using Helm Charts as follows:
+2. **Continuous Integration with AWS CodeBuild**:
+   - AWS CodeBuild is used to automate the process of building Docker images for the application. Whenever a pull request is merged in the GitHub repository, a 
+     webhook event triggers the CI pipeline.
+   - The `buildspec.yml` file defines the steps for building the Docker image. This includes logging into AWS Elastic Container Registry (ECR), building the Docker 
+     image using the instructions in the Dockerfile, tagging the image, and pushing it to the ECR.
 
-   Add the Bitnami repository:
+3. **Docker Image Storage in AWS ECR**:
+   - The newly built Docker image is pushed to AWS ECR, which acts as a private Docker image repository.
+
+4. **Continuous Deployment with Kubernetes on AWS EKS**:
+   - The Kubernetes cluster is set up using Amazon Elastic Kubernetes Service (EKS) with a node group to run the application. The node group consisting of 2 nodes       running Amazon Linux 2 (ARM64), with m6g.large instance types and 20 GiB disk sizes. These hardware and software components are well-suited for the                 microservice's workload. Additionally, the ability to scale up or down offers flexibility to meet evolving business requirements.
+   - Establish communication between the AWS EKS service and the Visual Studio terminal to access and work on the created cluster. From the Visual Studio workspace      terminal, run the command:
+   > aws eks update-kubeconfig --name <your-cluster-name> --region <region>
+   - Once the Docker image is pushed to ECR, Kubernetes automatically pulls the updated image based on the deployment configuration.
+   - Kubernetes deployment files (YAML configuration files) specify how the application is deployed and managed within the cluster. They define the desired state        for deployments, services, and other resources.
+   - When a new Docker image version is available (after a new image is pushed to ECR), Kubernetes can automatically update the running pods with the new image          version. This is facilitated by the Kubernetes Deployment controller, which performs rolling updates to minimize downtime.
+
+5. **Helm for Database Setup and Management**:
+   - Helm charts are used to deploy and manage the PostgreSQL database within the Kubernetes cluster. Helm automates the creation and management of Kubernetes           resources, simplifying the deployment process.
+     
+   - Add the Bitnami repository:
    > helm repo add bitnami https://charts.bitnami.com/bitnami
 
    Install the PostgreSQL Helm Chart:
    > helm install analyticsapi bitnami/postgresql --set primary.persistence.enabled=false
 
-- This sets up a PostgreSQL deployment at <SERVICE_NAME>-postgresql.default.svc.cluster.local in your Kubernetes cluster. You can verify it by running kubectl get svc.
+   - This sets up a PostgreSQL deployment at <SERVICE_NAME>-postgresql.default.svc.cluster.local in your Kubernetes cluster. You can verify it by running kubectl        get svc.
 
-- Follow the output instructions from the second command for multiple ways to connect to the database, either from within or outside the cluster.
+   - Follow the output instructions from the second command for multiple ways to connect to the database, either from within or outside the cluster.
 
-- Finally, run the seed files located in the `db/` directory in numerical order to create the tables and populate them with data.
+   - Finally, run the seed files located in the `db/` directory in numerical order to create the tables and populate them with data.
 
-**At this stage, your database service should be running and accessible by the deployed container hosting the analytics-api. This microservice operates as a pod within a Kubernetes cluster, with the ability to be automatically destroyed and redeployed whenever a code merge occurs in the GitHub repository. To ensure high availability, a Load Balancer has been deployed to direct traffic to the pod running the analytics-api microservice.** 
+6. **Monitoring and Logging with AWS CloudWatch**:
+   - Logs from the application pods and containers are sent to AWS CloudWatch. This allows for real-time monitoring and troubleshooting of the application.
 
-For troubleshooting, logs from the container or application running as a Kubernetes pod are sent to a log group that can be accessed through AWS CloudWatch under Log Groups.
+### Summary of Continuous Deployment:
 
-#### Best Practices
-* Dockerfile uses an appropriate base image for the application being deployed. Complex commands in the Dockerfile include a comment describing what it is doing.
-* The Docker images use semantic versioning with three numbers separated by dots, e.g. `1.2.1` and versioning is visible in the  screenshot. See [Semantic Versioning](https://semver.org/) for more details.
+In this setup, continuous deployment is achieved through the integration of GitHub, AWS CodeBuild, AWS ECR, and AWS EKS. Code changes in the GitHub repository automatically trigger a build pipeline, which builds and pushes a new Docker image to ECR. Kubernetes then pulls the updated image and redeploys the microservice, ensuring the application is always up-to-date and running the latest code. This approach enables automated, seamless, and efficient deployment of microservices at scale, with minimal manual intervention.
