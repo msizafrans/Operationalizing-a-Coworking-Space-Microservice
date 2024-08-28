@@ -1,4 +1,4 @@
-## Microservices at Scale using Kubernetes and AWS
+## Microservices at Scale using AWS, Docker, and Kubernetes
 This project focuses on deploying and managing microservices at scale using Kubernetes on AWS. The goal is to build a resilient, scalable, and highly available architecture that can support microservices in a cloud environment.
 
 ### Dependencies:
