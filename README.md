@@ -9,19 +9,19 @@ This project focuses on deploying and managing microservices at scale using Kube
 - `helm` - apply Helm Charts to a Kubernetes cluster
 
 #### Remote Resources
-- AWS CodeBuild - build Docker images remotely
+- AWS CodeBuild - Set up a CI project to build Docker images remotely
 - AWS ECR - host Docker images
-- Kubernetes Environment with AWS EKS - run applications in k8s
-- AWS CloudWatch - monitor activity and logs in EKS
-- GitHub - pull and clone code
-- Docker - containerize the app
+- Kubernetes/K8s Environment - Deploy applications using AWS EKS
+- AWS CloudWatch - monitor AWS EKS activity and logs
+- GitHub - store app code, config files and other dependencies
+- Docker - to containerize the app
 
 ### Project Objectives:
-- Set up a Postgres database with a Helm Chart
-- Create a `Dockerfile` for the Python application. Use a base image that is Python-based.
-- Write a simple build pipeline with AWS CodeBuild to build and push a Docker image into AWS ECR
-- Create a service and deployment using Kubernetes configuration files to deploy the application
-- Check AWS CloudWatch for application logs
+- Create a Dockerfile for the Python application. Use a base image that is Python-based.
+- Write a simple build pipeline with AWS CodeBuild to build and push a Docker image into AWS ECR.
+- Set up a Postgres database with a Helm Chart.
+- Create a service and deployment using Kubernetes configuration files to deploy the application.
+- Check AWS CloudWatch for application logs.
    
 ### How Continuous Deployment is Implemented:
 
