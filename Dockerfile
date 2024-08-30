@@ -1,4 +1,4 @@
-# Python 3.9 slim-buster (Debian 10 Linux Distribution) will be the base image for this application
+# Python 3.9 slim-buster (Debian 10 Linux Distribution) will be the base image for this python application
 FROM python:3.9-slim-buster
 
 # Set the working directory inside the Docker container
