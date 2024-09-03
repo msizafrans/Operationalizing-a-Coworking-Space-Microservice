@@ -15,15 +15,7 @@ This project focuses on deploying and managing microservices at scale using Kube
 - AWS CloudWatch - monitor AWS EKS activity and logs
 - GitHub - store app code, config files and other dependencies
 - Docker - to containerize the app
-
-### Purpose of the analytics-api application:
-The application's primary purpose is to monitor and report user activity in a system, specifically:
-
-- Tracking and reporting daily usage data.
-- Tracking and reporting individual user visits.
-- Ensuring the service's health and readiness for serving requests.
-- This setup could be part of a larger system for analytics, user engagement tracking, or monitoring application usage over time.
-
+  
 ### Project Objectives:
 - Create a Dockerfile for the Python application. Use a base image that is Python-based.
 - Write a simple build pipeline with AWS CodeBuild to build and push a Docker image into AWS ECR.
