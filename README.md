@@ -1,7 +1,7 @@
 ## Microservices at Scale using AWS, Docker, and Kubernetes
 This project focuses on deploying and managing microservices at scale using Kubernetes on AWS. The goal is to build a resilient, scalable, and highly available architecture that can support microservices in a cloud environment.
 
-### Purpose of the "app.py" Application:
+### Purpose of the Application:
 The application's primary purpose is to monitor and report user activity in a system, specifically:
 
 - Tracking and reporting daily usage data.
