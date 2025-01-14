@@ -49,3 +49,258 @@ spec:
       
 
       
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: analytics-api
+  labels:
+    name: analytics-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      service: analytics-api
+  template:
+    metadata:
+      labels:
+        service: analytics-api
+    spec:
+      containers:
+      - name: analytics-api
+        image: <image_URI>
+        imagePullPolicy: Always
+        env:
+        - name: DB_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_USERNAME
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_NAME
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_HOST
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_PORT
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: dbsecret
+              key: DB_PASSWORD
+        ports:
+          - containerPort: 5153        
+      
+
+      
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: analytics-api
+  labels:
+    name: analytics-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      service: analytics-api
+  template:
+    metadata:
+      labels:
+        service: analytics-api
+    spec:
+      containers:
+      - name: analytics-api
+        image: <image_URI>
+        imagePullPolicy: Always
+        env:
+        - name: DB_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_USERNAME
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_NAME
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_HOST
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_PORT
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: dbsecret
+              key: DB_PASSWORD
+        ports:
+          - containerPort: 5153        
+      
+
+      
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: analytics-api
+  labels:
+    name: analytics-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      service: analytics-api
+  template:
+    metadata:
+      labels:
+        service: analytics-api
+    spec:
+      containers:
+      - name: analytics-api
+        image: <image_URI>
+        imagePullPolicy: Always
+        env:
+        - name: DB_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_USERNAME
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_NAME
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_HOST
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_PORT
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: dbsecret
+              key: DB_PASSWORD
+        ports:
+          - containerPort: 5153        
+      
+
+      
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: analytics-api
+  labels:
+    name: analytics-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      service: analytics-api
+  template:
+    metadata:
+      labels:
+        service: analytics-api
+    spec:
+      containers:
+      - name: analytics-api
+        image: <image_URI>
+        imagePullPolicy: Always
+        env:
+        - name: DB_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_USERNAME
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_NAME
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_HOST
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_PORT
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: dbsecret
+              key: DB_PASSWORD
+        ports:
+          - containerPort: 5153        
+      
+
+      
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: analytics-api
+  labels:
+    name: analytics-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      service: analytics-api
+  template:
+    metadata:
+      labels:
+        service: analytics-api
+    spec:
+      containers:
+      - name: analytics-api
+        image: <image_URI>
+        imagePullPolicy: Always
+        env:
+        - name: DB_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_USERNAME
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_NAME
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_HOST
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap
+              key: DB_PORT
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: dbsecret
+              key: DB_PASSWORD
+        ports:
+          - containerPort: 5153        
+      
+
+      
